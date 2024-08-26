@@ -38,7 +38,7 @@ arg_type() { return ""; } //Empty
 template<typename T>
 class DefaultConverter {
     public:
-        ConvertedValue<T> from_str(std::string str) {
+        ConvertedValue<T> from_str(const std::string& str) {
             std::stringstream ss(str);
 
             T val = T();
@@ -90,13 +90,13 @@ class DefaultConverter {
 template<>
 class DefaultConverter<bool> {
     public:
-        ConvertedValue<bool> from_str(std::string str) {
+        ConvertedValue<bool> from_str(const std::string& str) {
             ConvertedValue<bool> converted_value;
 
-            str = tolower(str);
-            if (str == "0" || str == "false") {
+            std::string lower = tolower(str);
+            if (lower == "0" || lower == "false") {
                 converted_value.set_value(false); 
-            } else if (str == "1" || str == "true") {
+            } else if (lower == "1" || lower == "true") {
                 converted_value.set_value(true); 
             } else {
                 converted_value.set_error("Unexpected value '" + str + "' (expected one of: " + join(default_choices(), ", ") + ")");
@@ -122,12 +122,12 @@ class DefaultConverter<bool> {
 template<>
 class DefaultConverter<std::string> {
     public:
-        ConvertedValue<std::string> from_str(std::string str) { 
+        ConvertedValue<std::string> from_str(const std::string& str) { 
             ConvertedValue<std::string> converted_value;
             converted_value.set_value(str);
             return converted_value;
         }
-        ConvertedValue<std::string> to_str(std::string val) {
+        ConvertedValue<std::string> to_str(const std::string& val) {
             ConvertedValue<std::string> converted_value;
             converted_value.set_value(val);
             return converted_value;
@@ -140,7 +140,7 @@ class DefaultConverter<std::string> {
 template<>
 class DefaultConverter<const char*> {
     public:
-        ConvertedValue<const char*> from_str(std::string str) { 
+        ConvertedValue<const char*> from_str(const std::string& str) { 
             ConvertedValue<const char*> val;
             val.set_value(strdup(str.c_str()));
             return val;
@@ -158,7 +158,7 @@ class DefaultConverter<const char*> {
 template<>
 class DefaultConverter<char*> {
     public:
-        ConvertedValue<char*> from_str(std::string str) { 
+        ConvertedValue<char*> from_str(const std::string& str) { 
             ConvertedValue<char*> val;
             val.set_value(strdup(str.c_str()));
             return val;

@@ -4,7 +4,7 @@
 namespace argparse {
 
     template<typename T, typename Converter>
-    std::shared_ptr<Argument> make_singlevalue_argument(ArgValue<T>& dest, std::string long_opt, std::string short_opt) {
+    std::shared_ptr<Argument> make_singlevalue_argument(ArgValue<T>& dest, const std::string& long_opt, const std::string& short_opt) {
         auto ptr = std::make_shared<SingleValueArgument<T, Converter>>(dest, long_opt, short_opt);
 
         //If the conversion object specifies a non-empty set of choices
@@ -18,7 +18,7 @@ namespace argparse {
     }
 
     template<typename T, typename Converter>
-    std::shared_ptr<Argument> make_multivalue_argument(ArgValue<T>& dest, std::string long_opt, std::string short_opt) {
+    std::shared_ptr<Argument> make_multivalue_argument(ArgValue<T>& dest, const std::string& long_opt, const std::string& short_opt) {
         auto ptr = std::make_shared<MultiValueArgument<T, Converter>>(dest, long_opt, short_opt);
 
         //If the conversion object specifies a non-empty set of choices
@@ -36,34 +36,34 @@ namespace argparse {
      */
 
     template<typename T, typename Converter>
-    Argument& ArgumentParser::add_argument(ArgValue<T>& dest, std::string option) {
+    Argument& ArgumentParser::add_argument(ArgValue<T>& dest, const std::string& option) {
         return add_argument<T,Converter>(dest, option, std::string());
     }
 
     template<typename T, typename Converter>
-    Argument& ArgumentParser::add_argument(ArgValue<T>& dest, std::string long_opt, std::string short_opt) {
+    Argument& ArgumentParser::add_argument(ArgValue<T>& dest, const std::string& long_opt, const std::string& short_opt) {
         return argument_groups_[0].add_argument<T,Converter>(dest, long_opt, short_opt);
     }
 
     template<typename T, typename Converter>
-    Argument& ArgumentParser::add_argument(ArgValue<std::vector<T>>& dest, std::string option) {
+    Argument& ArgumentParser::add_argument(ArgValue<std::vector<T>>& dest, const std::string& option) {
         return add_argument<T,Converter>(dest, option, std::string());
     }
 
     template<typename T, typename Converter>
-    Argument& ArgumentParser::add_argument(ArgValue<std::vector<T>>& dest, std::string long_opt, std::string short_opt) {
+    Argument& ArgumentParser::add_argument(ArgValue<std::vector<T>>& dest, const std::string& long_opt, const std::string& short_opt) {
         return argument_groups_[0].add_argument<T,Converter>(dest, long_opt, short_opt);
     }
     /*
      * ArgumentGroup
      */
     template<typename T, typename Converter>
-    Argument& ArgumentGroup::add_argument(ArgValue<T>& dest, std::string option) {
+    Argument& ArgumentGroup::add_argument(ArgValue<T>& dest, const std::string& option) {
         return add_argument<T,Converter>(dest, option, std::string());
     }
 
     template<typename T, typename Converter>
-    Argument& ArgumentGroup::add_argument(ArgValue<T>& dest, std::string long_opt, std::string short_opt) {
+    Argument& ArgumentGroup::add_argument(ArgValue<T>& dest, const std::string& long_opt, const std::string& short_opt) {
         arguments_.push_back(make_singlevalue_argument<T,Converter>(dest, long_opt, short_opt));
 
         auto& arg = arguments_[arguments_.size() - 1];
@@ -72,12 +72,12 @@ namespace argparse {
     }
 
     template<typename T, typename Converter>
-    Argument& ArgumentGroup::add_argument(ArgValue<std::vector<T>>& dest, std::string option) {
+    Argument& ArgumentGroup::add_argument(ArgValue<std::vector<T>>& dest, const std::string& option) {
         return add_argument<T,Converter>(dest, option, std::string());
     }
 
     template<typename T, typename Converter>
-    Argument& ArgumentGroup::add_argument(ArgValue<std::vector<T>>& dest, std::string long_opt, std::string short_opt) {
+    Argument& ArgumentGroup::add_argument(ArgValue<std::vector<T>>& dest, const std::string& long_opt, const std::string& short_opt) {
         arguments_.push_back(make_multivalue_argument<std::vector<T>,Converter>(dest, long_opt, short_opt));
 
         auto& arg = arguments_[arguments_.size() - 1];

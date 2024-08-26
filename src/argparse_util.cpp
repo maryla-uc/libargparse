@@ -4,7 +4,7 @@
 
 namespace argparse {
 
-    std::array<std::string,2> split_leading_dashes(std::string str) {
+    std::array<std::string,2> split_leading_dashes(const std::string& str) {
         auto iter = str.begin();
         while(*iter == '-') {
             ++iter;
@@ -17,7 +17,7 @@ namespace argparse {
         return array;
     }
 
-    bool is_argument(std::string str, const std::map<std::string,std::shared_ptr<Argument>>& arg_map) {
+    bool is_argument(const std::string& str, const std::map<std::string,std::shared_ptr<Argument>>& arg_map) {
 
         for (const auto& kv : arg_map) {
             auto iter = arg_map.find(str);
@@ -39,7 +39,7 @@ namespace argparse {
         return false;
     }
 
-    bool is_valid_choice(std::string str, const std::vector<std::string>& choices) {
+    bool is_valid_choice(const std::string& str, const std::vector<std::string>& choices) {
         if (choices.empty()) return true;
 
         auto find_iter = std::find(choices.begin(), choices.end(), str);
@@ -49,7 +49,7 @@ namespace argparse {
         return true;
     }
 
-    std::string toupper(std::string str) {
+    std::string toupper(const std::string& str) {
         std::string upper;
         for (size_t i = 0; i < str.size(); ++i) {
             char C = ::toupper(str[i]);
@@ -58,7 +58,7 @@ namespace argparse {
         return upper;
     }
 
-    std::string tolower(std::string str) {
+    std::string tolower(const std::string& str) {
         std::string lower;
         for (size_t i = 0; i < str.size(); ++i) {
             char C = ::tolower(str[i]);
@@ -74,7 +74,7 @@ namespace argparse {
         return res;
     }
 
-    std::vector<std::string> wrap_width(std::string str, size_t width, std::vector<std::string> break_strs) {
+    std::vector<std::string> wrap_width(const std::string& str, size_t width, const std::vector<std::string>& break_strs) {
         std::vector<std::string> wrapped_lines;
 
         size_t start = 0;
@@ -114,7 +114,7 @@ namespace argparse {
         return wrapped_lines;
     }
 
-    std::string basename(std::string filepath) {
+    std::string basename(const std::string& filepath) {
 #ifdef _WIN32
         //Windows uses back-slash as directory divider
         auto pos = filepath.rfind('\\');

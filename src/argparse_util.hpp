@@ -11,34 +11,34 @@ namespace argparse {
 
     //Splits off the leading dashes of a string, returning the dashes (index 0)
     //and the rest of the string (index 1)
-    std::array<std::string,2> split_leading_dashes(std::string str);
+    std::array<std::string,2> split_leading_dashes(const std::string& str);
 
     //Converts a string to upper case
-    std::string toupper(std::string str);
+    std::string toupper(const std::string& str);
 
     //Converts a string to lower case
-    std::string tolower(std::string str);
+    std::string tolower(const std::string& str);
 
     //Returns true if str represents a named argument starting with
     //'-' or '--' followed by one or more letters
-    bool is_argument(std::string str, const std::map<std::string,std::shared_ptr<Argument>>& arg_map);
+    bool is_argument(const std::string& str, const std::map<std::string,std::shared_ptr<Argument>>& arg_map);
 
     //Returns true if str is in choices, or choices is empty
-    bool is_valid_choice(std::string str, const std::vector<std::string>& choices);
+    bool is_valid_choice(const std::string& str, const std::vector<std::string>& choices);
 
     //Returns 'str' interpreted as type T
     // Throws an exception if conversion fails
     template<typename T> 
-    T as(std::string str);
+    T as(const std::string& str);
 
     template<typename Container>
-    std::string join(Container container, std::string join_str);
+    std::string join(const Container& container, const std::string& join_str);
 
     char* strdup(const char* str);
 
-    std::vector<std::string> wrap_width(std::string str, size_t width, std::vector<std::string> split_str={" ", "/"});
+    std::vector<std::string> wrap_width(const std::string& str, size_t width, const std::vector<std::string>& split_str={" ", "/"});
 
-    std::string basename(std::string filepath);
+    std::string basename(const std::string& filepath);
 } //namespace
 
 #include "argparse_util.tpp"

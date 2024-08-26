@@ -105,7 +105,7 @@ As a result libargparse also supports custom conversions, allowing user-defined 
 If we wanted to modify the above example so the '--bar' argument accepted the strings 'on' and 'off' (instead of the default 'true' and 'false') we would define a custom class as follows:
 ```cpp
 struct OnOff {
-    ConvertedValue<bool> from_str(std::string str) {
+    ConvertedValue<bool> from_str(const std::string& str) {
         ConvertedValue<bool> converted_value;
 
         if      (str == "on")  converted_value.set_value(true);

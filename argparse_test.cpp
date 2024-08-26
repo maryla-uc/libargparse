@@ -91,11 +91,11 @@ struct Args {
     ArgValue<std::vector<float>> zero_or_more;
 };
 
-bool expect_pass(argparse::ArgumentParser& parser, std::vector<std::string> cmd_line);
-bool expect_fail(argparse::ArgumentParser& parser, std::vector<std::string> cmd_line);
+bool expect_pass(argparse::ArgumentParser& parser, const std::vector<std::string>& cmd_line);
+bool expect_fail(argparse::ArgumentParser& parser, const std::vector<std::string>& cmd_line);
 
 struct OnOff {
-    ConvertedValue<bool> from_str(std::string str) {
+    ConvertedValue<bool> from_str(const std::string& str) {
         ConvertedValue<bool> converted_value;
 
         if      (str == "on")  converted_value.set_value(true);
@@ -549,7 +549,7 @@ int main(
 #endif
 }
 
-bool expect_pass(argparse::ArgumentParser& parser, std::vector<std::string> cmd_line) {
+bool expect_pass(argparse::ArgumentParser& parser, const std::vector<std::string>& cmd_line) {
     try {
         parser.parse_args_throw(cmd_line);
     } catch(const argparse::ArgParseHelp&) {
@@ -566,7 +566,7 @@ bool expect_pass(argparse::ArgumentParser& parser, std::vector<std::string> cmd_
     return true;
 }
 
-bool expect_fail(argparse::ArgumentParser& parser, std::vector<std::string> cmd_line) {
+bool expect_fail(argparse::ArgumentParser& parser, const std::vector<std::string>& cmd_line) {
     try {
         parser.parse_args_throw(cmd_line);
     } catch(const argparse::ArgParseError& err) {

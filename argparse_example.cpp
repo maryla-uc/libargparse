@@ -15,7 +15,7 @@ struct Args {
 };
 
 struct OnOff {
-    ConvertedValue<bool> from_str(std::string str) {
+    ConvertedValue<bool> from_str(const std::string& str) {
         ConvertedValue<bool> converted_value;
 
         if      (str == "on")  converted_value.set_value(true);
@@ -37,7 +37,7 @@ struct OnOff {
 };
 
 struct ZeroOneRange {
-    ConvertedValue<float> from_str(std::string str) {
+    ConvertedValue<float> from_str(const std::string& str) {
         float value;
         std::stringstream ss(str);
         ss >> value;

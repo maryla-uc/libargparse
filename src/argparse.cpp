@@ -16,7 +16,7 @@ namespace argparse {
      * ArgumentParser
      */
 
-    ArgumentParser::ArgumentParser(std::string prog_name, std::string description_str, std::ostream& os)
+    ArgumentParser::ArgumentParser(const std::string& prog_name, const std::string& description_str, std::ostream& os)
         : description_(description_str)
         , formatter_(new DefaultFormatter())
         , os_(os)
@@ -25,7 +25,7 @@ namespace argparse {
         argument_groups_.push_back(ArgumentGroup("arguments"));
     }
 
-    ArgumentParser& ArgumentParser::prog(std::string prog_name, bool basename_only) {
+    ArgumentParser& ArgumentParser::prog(const std::string& prog_name, bool basename_only) {
         if (basename_only) {
             prog_ = basename(prog_name);
         } else {
@@ -34,17 +34,17 @@ namespace argparse {
         return *this;
     }
 
-    ArgumentParser& ArgumentParser::version(std::string version_str) {
+    ArgumentParser& ArgumentParser::version(const std::string& version_str) {
         version_ = version_str;
         return *this;
     }
 
-    ArgumentParser& ArgumentParser::epilog(std::string epilog_str) {
+    ArgumentParser& ArgumentParser::epilog(const std::string& epilog_str) {
         epilog_ = epilog_str;
         return *this;
     }
 
-    ArgumentGroup& ArgumentParser::add_argument_group(std::string description_str) {
+    ArgumentGroup& ArgumentParser::add_argument_group(const std::string& description_str) {
         argument_groups_.push_back(ArgumentGroup(description_str));
         return argument_groups_[argument_groups_.size() - 1];
     }
@@ -78,7 +78,7 @@ namespace argparse {
         parse_args_throw(arg_strs);
     }
     
-    void ArgumentParser::parse_args_throw(std::vector<std::string> arg_strs) {
+    void ArgumentParser::parse_args_throw(const std::vector<std::string>& arg_strs) {
         add_help_option_if_unspecified();
 
         //Reset all the defaults
@@ -373,7 +373,7 @@ namespace argparse {
         }
     }
 
-    ArgumentParser::ShortArgInfo ArgumentParser::no_space_short_arg(std::string str, const std::map<std::string, std::shared_ptr<Argument>>& str_to_option_arg) const {
+    ArgumentParser::ShortArgInfo ArgumentParser::no_space_short_arg(const std::string& str, const std::map<std::string, std::shared_ptr<Argument>>& str_to_option_arg) const {
 
         ShortArgInfo short_arg_info;
         for(const auto& kv : str_to_option_arg) {
@@ -409,11 +409,11 @@ namespace argparse {
     /*
      * ArgumentGroup
      */
-    ArgumentGroup::ArgumentGroup(std::string name_str)
+    ArgumentGroup::ArgumentGroup(const std::string& name_str)
         : name_(name_str)
         {}
 
-    ArgumentGroup& ArgumentGroup::epilog(std::string str) {
+    ArgumentGroup& ArgumentGroup::epilog(const std::string& str) {
         epilog_ = str;
         return *this;
     }
@@ -424,7 +424,7 @@ namespace argparse {
     /*
      * Argument
      */
-    Argument::Argument(std::string long_opt, std::string short_opt)
+    Argument::Argument(const std::string& long_opt, const std::string& short_opt)
         : long_opt_(long_opt)
         , short_opt_(short_opt) {
 
@@ -444,7 +444,7 @@ namespace argparse {
         metavar_ = toupper(dashes_name[1]);
     }
 
-    Argument& Argument::help(std::string help_str) {
+    Argument& Argument::help(const std::string& help_str) {
         help_ = help_str;
         return *this;
     }
@@ -475,12 +475,12 @@ namespace argparse {
         return *this;
     }
 
-    Argument& Argument::metavar(std::string metavar_str) {
+    Argument& Argument::metavar(const std::string& metavar_str) {
         metavar_ = metavar_str;
         return *this;
     }
 
-    Argument& Argument::choices(std::vector<std::string> choice_values) {
+    Argument& Argument::choices(const std::vector<std::string>& choice_values) {
         choices_ = choice_values;
         return *this;
     }
@@ -535,7 +535,7 @@ namespace argparse {
         return default_value(std::vector<std::string>(values.begin(), values.end()));
     }
 
-    Argument& Argument::group_name(std::string grp) {
+    Argument& Argument::group_name(const std::string& grp) {
         group_name_ = grp;
         return *this;
     }
