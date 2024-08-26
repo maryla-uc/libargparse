@@ -12,7 +12,7 @@ namespace argparse {
 
         std::string dashes(str.begin(), iter);
         std::string name(iter, str.end());
-        std::array<std::string,2> array = {dashes, name};
+        std::array<std::string,2> array = {std::move(dashes), std::move(name)};
 
         return array;
     }
